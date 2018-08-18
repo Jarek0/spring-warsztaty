@@ -1,9 +1,6 @@
 package pl.edu.pollub.warsztaty.userAccount.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -15,6 +12,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "user_account")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @EqualsAndHashCode(of = {"pesel"})
 public class UserAccountEntity {
@@ -29,10 +28,10 @@ public class UserAccountEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, unique = true, length = 30)
+    @Column(nullable = false, length = 30)
     private String firstName;
 
-    @Column(nullable = false, unique = true, length = 30)
+    @Column(nullable = false, length = 30)
     private String surname;
 
     @Enumerated(value = STRING)
