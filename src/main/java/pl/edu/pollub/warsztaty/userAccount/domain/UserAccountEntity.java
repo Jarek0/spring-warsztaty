@@ -16,6 +16,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "user_account")
 @Data
 @Builder
+@EqualsAndHashCode(of = {"pesel"})
 public class UserAccountEntity {
 
     @Id
