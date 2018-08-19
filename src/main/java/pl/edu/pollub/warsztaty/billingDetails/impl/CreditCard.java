@@ -17,13 +17,11 @@ import javax.persistence.*;
 @ToString(callSuper = true)
 public class CreditCard extends BillingDetails {
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String cardNumber;
 
-    @Column(nullable = false)
     private String expMonth;
 
-    @Column(nullable = false)
     private String expYear;
 
 }

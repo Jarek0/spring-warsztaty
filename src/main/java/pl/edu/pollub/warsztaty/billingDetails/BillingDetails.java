@@ -7,18 +7,17 @@ import pl.edu.pollub.warsztaty.userAccount.domain.UserAccountEntity;
 
 import javax.persistence.*;
 
-import static javax.persistence.GenerationType.SEQUENCE;
-import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
+import static javax.persistence.GenerationType.IDENTITY;
+import static javax.persistence.InheritanceType.SINGLE_TABLE;
 
 @Entity
-@Inheritance(strategy = TABLE_PER_CLASS)
+@Inheritance(strategy = SINGLE_TABLE)
 @Data
 @ToString
 public abstract class BillingDetails {
 
     @Id
-    @SequenceGenerator(name = "billing_details_id_generator", sequenceName = "billing_details_seq", allocationSize = 1)
-    @GeneratedValue(generator = "billing_details_id_generator", strategy = SEQUENCE) //nie da się użyć identity
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @Column(nullable = false)

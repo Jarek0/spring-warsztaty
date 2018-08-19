@@ -26,10 +26,6 @@ public class DataBaseInit implements ApplicationListener<ContextRefreshedEvent>{
 
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        UserAccountEntity foundJarek = userAccountDao.findByLogin("jarek123")
-                .orElseThrow(() -> new ObjectNotFoundException("jarek123", "UserAccount"));
-
-        Set<BillingDetails> billingDetails = foundJarek.getBillingDetails();
     }
 
 }

@@ -15,13 +15,11 @@ import javax.persistence.*;
 public class BankAccount extends BillingDetails {
 
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String account;
 
-    @Column(nullable = false)
     private String bankName;
 
-    @Column(nullable = false)
     private String swift;
 
 
