@@ -5,6 +5,7 @@ import pl.edu.pollub.warsztaty.userAccount.domain.address.Address;
 import pl.edu.pollub.warsztaty.userAccount.domain.UserAccountEntity;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 
 import static lombok.AccessLevel.PRIVATE;
 import static pl.edu.pollub.warsztaty.userAccount.domain.Gender.MALE;
@@ -48,6 +49,8 @@ public final class UserAccountFactory {
                 .birthDate(LocalDate.of(1994, 8, 4))
                 .pesel("99999999999")
                 .homeAddress(jarekHome)
+                .bankAccounts(new HashSet<>())
+                .creditCards(new HashSet<>())
                 .build();
     }
 

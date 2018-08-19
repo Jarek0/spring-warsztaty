@@ -1,12 +1,17 @@
 package pl.edu.pollub.warsztaty.userAccount.domain;
 
 import lombok.*;
+import pl.edu.pollub.warsztaty.billingDetails.impl.BankAccount;
+import pl.edu.pollub.warsztaty.billingDetails.impl.CreditCard;
 import pl.edu.pollub.warsztaty.userAccount.domain.address.Address;
 
 import javax.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Set;
 
+import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -59,4 +64,24 @@ public class UserAccountEntity {
             @AttributeOverride(name = "city", column = @Column(name = "billing_city")),
     })
     private Address billingAddress;
+
+    @OneToMany(mappedBy = "userAccount", cascade = {PERSIST})
+    private Set<BankAccount> bankAccounts;
+
+    @OneToMany(mappedBy = "userAccount", cascade = {PERSIST})
+    private Set<CreditCard> creditCards;
+
+    public void addBankAccounts(BankAccount... bankAccounts) {
+        Collections.addAll(this.getBankAccounts(), bankAccounts);
+        for(BankAccount bankAccount : bankAccounts) {
+            bankAccount.setUserAccount(this);
+        }
+    }
+
+    public void addCreditCards(CreditCard... creditCards) {
+        Collections.addAll(this.getCreditCards(), creditCards);
+        for(CreditCard creditCard : creditCards) {
+            creditCard.setUserAccount(this);
+        }
+    }
 }

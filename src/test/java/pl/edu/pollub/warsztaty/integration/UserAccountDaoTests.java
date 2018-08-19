@@ -8,6 +8,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
+import pl.edu.pollub.warsztaty.billingDetails.factory.BankAccountFactory;
+import pl.edu.pollub.warsztaty.billingDetails.factory.CreditCardFactory;
 import pl.edu.pollub.warsztaty.userAccount.dao.UserAccountDao;
 import pl.edu.pollub.warsztaty.userAccount.domain.address.Address;
 import pl.edu.pollub.warsztaty.userAccount.domain.UserAccountEntity;
@@ -30,6 +32,26 @@ public class UserAccountDaoTests {
 
     @Autowired
     private UserAccountDao userAccountDao;
+
+    @Test
+    public void shouldSaveBillingDetails() {
+        Address jarekHome = createJarekHome();
+        UserAccountEntity jarek = createJarek(jarekHome);
+
+        jarek.addBankAccounts(
+                BankAccountFactory.of("123","Alior", "Alior", "jarek"),
+                BankAccountFactory.of("124","Alior", "Alior", "jarek"),
+                BankAccountFactory.of("125","Alior", "Alior", "jarek")
+        );
+
+        jarek.addCreditCards(
+                CreditCardFactory.of("123","1", "2018", "jarek"),
+                CreditCardFactory.of("124","1", "2018", "jarek"),
+                CreditCardFactory.of("125","1", "2018", "jarek")
+        );
+
+        userAccountDao.save(jarek);
+    }
 
     @Test
     public void shouldHasGermanZipCode() {
