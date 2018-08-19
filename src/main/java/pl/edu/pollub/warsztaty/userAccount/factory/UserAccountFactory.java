@@ -1,7 +1,7 @@
-package pl.edu.pollub.warsztaty.utils;
+package pl.edu.pollub.warsztaty.userAccount.factory;
 
 import lombok.NoArgsConstructor;
-import pl.edu.pollub.warsztaty.userAccount.domain.Gender;
+import pl.edu.pollub.warsztaty.userAccount.domain.Address;
 import pl.edu.pollub.warsztaty.userAccount.domain.UserAccountEntity;
 
 import java.time.LocalDate;
@@ -25,7 +25,7 @@ public final class UserAccountFactory {
                 .build();
     }
 
-    public static UserAccountEntity of(String login, String pesel) {
+    public static UserAccountEntity of(String login, String pesel, Address homeAddress) {
         return UserAccountEntity.builder()
                 .login(login)
                 .email(login + "@gmail.com")
@@ -34,10 +34,11 @@ public final class UserAccountFactory {
                 .gender(MALE)
                 .birthDate(LocalDate.of(1994, 8, 4))
                 .pesel(pesel)
+                .homeAddress(homeAddress)
                 .build();
     }
 
-    public static UserAccountEntity createJarek() {
+    public static UserAccountEntity createJarek(Address jarekHome) {
         return UserAccountEntity.builder()
                 .login("jarek123")
                 .email("jarek123@gmail.com")
@@ -46,10 +47,11 @@ public final class UserAccountFactory {
                 .gender(MALE)
                 .birthDate(LocalDate.of(1994, 8, 4))
                 .pesel("99999999999")
+                .homeAddress(jarekHome)
                 .build();
     }
 
-    public static UserAccountEntity createAndrzej() {
+    public static UserAccountEntity createAndrzej(Address andrzejHome) {
         return UserAccountEntity.builder()
                 .login("jarek123")
                 .email("andrzej123@gmail.com")
@@ -58,6 +60,7 @@ public final class UserAccountFactory {
                 .gender(MALE)
                 .birthDate(LocalDate.of(1994, 7, 4))
                 .pesel("99999999998")
+                .homeAddress(andrzejHome)
                 .build();
     }
 }

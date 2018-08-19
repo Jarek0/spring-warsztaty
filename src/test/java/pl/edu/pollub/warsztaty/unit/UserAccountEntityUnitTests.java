@@ -5,7 +5,7 @@ import pl.edu.pollub.warsztaty.userAccount.domain.UserAccountEntity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static pl.edu.pollub.warsztaty.utils.UserAccountFactory.of;
+import static pl.edu.pollub.warsztaty.userAccount.factory.UserAccountFactory.of;
 
 public class UserAccountEntityUnitTests {
 

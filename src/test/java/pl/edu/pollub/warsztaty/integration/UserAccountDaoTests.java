@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.edu.pollub.warsztaty.userAccount.dao.UserAccountDao;
+import pl.edu.pollub.warsztaty.userAccount.domain.Address;
 import pl.edu.pollub.warsztaty.userAccount.domain.UserAccountEntity;
 
 
@@ -18,9 +19,11 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
-import static pl.edu.pollub.warsztaty.utils.UserAccountFactory.createAndrzej;
-import static pl.edu.pollub.warsztaty.utils.UserAccountFactory.createJarek;
-import static pl.edu.pollub.warsztaty.utils.UserAccountFactory.of;
+import static pl.edu.pollub.warsztaty.userAccount.factory.AddressFactory.createAndrzejHome;
+import static pl.edu.pollub.warsztaty.userAccount.factory.AddressFactory.createJarekHome;
+import static pl.edu.pollub.warsztaty.userAccount.factory.UserAccountFactory.createAndrzej;
+import static pl.edu.pollub.warsztaty.userAccount.factory.UserAccountFactory.createJarek;
+import static pl.edu.pollub.warsztaty.userAccount.factory.UserAccountFactory.of;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -32,31 +35,35 @@ public class UserAccountDaoTests {
 
     @Test
     public void shouldSaveJarek() {
-        UserAccountEntity jarek = createJarek(); //Przejsciowy
+        Address jarekHome = createJarekHome();
+        UserAccountEntity jarek = createJarek(jarekHome);
 
-        userAccountDao.save(jarek); //Trwaly
+        userAccountDao.save(jarek);
 
         assertNotNull(jarek.getId());
     }
 
     @Test(expected = DataIntegrityViolationException.class)
     public void shouldNotSaveBecauseUserWithThisLoginExists() {
-        UserAccountEntity jarek = createJarek(); //Przejsciowy
+        Address jarekHome = createJarekHome();
+        UserAccountEntity jarek = createJarek(jarekHome);
 
-        userAccountDao.save(jarek); //Trwaly
+        userAccountDao.save(jarek);
 
         assertNotNull(jarek.getId());
 
-        UserAccountEntity andrzej = createAndrzej();
+        Address andrzejHome = createAndrzejHome();
+        UserAccountEntity andrzej = createAndrzej(andrzejHome);
 
         userAccountDao.save(andrzej);
     }
 
     @Test
     public void shouldFindJarekByLogin() {
-        UserAccountEntity jarek = createJarek(); //Przejsciowy
+        Address jarekHome = createJarekHome();
+        UserAccountEntity jarek = createJarek(jarekHome);
 
-        userAccountDao.save(jarek); //Trwaly
+        userAccountDao.save(jarek);
 
         UserAccountEntity foundJarek = userAccountDao.findByLogin("jarek123")
                 .orElseThrow(() -> new ObjectNotFoundException("jarek123", "UserAccount"));
@@ -66,9 +73,10 @@ public class UserAccountDaoTests {
 
     @Test
     public void shouldUpdateUserAccount() {
-        UserAccountEntity jarek = createJarek(); //Przejsciowy
+        Address jarekHome = createJarekHome();
+        UserAccountEntity jarek = createJarek(jarekHome);
 
-        userAccountDao.save(jarek); //Trwaly
+        userAccountDao.save(jarek);
 
         UserAccountEntity foundJarek = userAccountDao.findByLogin("jarek123")
                 .orElseThrow(() -> new ObjectNotFoundException("jarek123", "UserAccount"));
@@ -88,14 +96,15 @@ public class UserAccountDaoTests {
 
     @Test(expected = ObjectNotFoundException.class)
     public void shouldRemoveUserAccount() {
-        UserAccountEntity jarek = createJarek(); //Przejsciowy
+        Address jarekHome = createJarekHome();
+        UserAccountEntity jarek = createJarek(jarekHome);
 
-        userAccountDao.save(jarek); //Trwaly
+        userAccountDao.save(jarek);
 
         UserAccountEntity foundJarek = userAccountDao.findByLogin("jarek123")
                 .orElseThrow(() -> new ObjectNotFoundException("jarek123", "UserAccount"));
 
-        userAccountDao.delete(foundJarek); //Usuniety
+        userAccountDao.delete(foundJarek);
 
         //noinspection ResultOfMethodCallIgnored
         userAccountDao.findByLogin("jarek123")
@@ -104,14 +113,15 @@ public class UserAccountDaoTests {
 
     @Test
     public void shouldSaveAllUserAccounts() {
-        List<UserAccountEntity> users = Arrays.asList( //Przejsciowy
-                of("Jarek", "999999999"),
-                of("Andrzej", "999999998"),
-                of("Bartek", "999999997"),
-                of("Lukasz", "999999996")
+        Address homeAddress = createJarekHome();
+        List<UserAccountEntity> users = Arrays.asList(
+                of("Jarek", "999999999", homeAddress),
+                of("Andrzej", "999999998", homeAddress),
+                of("Bartek", "999999997", homeAddress),
+                of("Lukasz", "999999996", homeAddress)
         );
 
-        userAccountDao.save(users); //Trwaly
+        userAccountDao.save(users);
 
         List<UserAccountEntity> foundUsers = userAccountDao.findAll();
 
@@ -120,11 +130,12 @@ public class UserAccountDaoTests {
 
     @Test
     public void shouldNotSaveUserAccount() {
-        UserAccountEntity jarek = createJarek(); //Przejsciowy
+        Address jarekHome = createJarekHome();
+        UserAccountEntity jarek = createJarek(jarekHome);
 
-        userAccountDao.save(jarek); //Trwaly
+        userAccountDao.save(jarek);
 
-        userAccountDao.detach(jarek); //Odłączony
+        userAccountDao.detach(jarek);
 
         jarek.setFirstName("Andrzej");
 

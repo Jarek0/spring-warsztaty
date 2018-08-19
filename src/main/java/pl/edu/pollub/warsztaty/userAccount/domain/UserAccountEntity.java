@@ -42,4 +42,5 @@ public class UserAccountEntity {
     @Column(nullable = false, unique = true, length = 11)
     private String pesel;
 
+    private Address homeAddress;
 }
