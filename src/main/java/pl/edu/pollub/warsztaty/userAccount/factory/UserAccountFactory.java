@@ -51,6 +51,20 @@ public final class UserAccountFactory {
                 .build();
     }
 
+    public static UserAccountEntity createJarek(Address jarekHome, Address billingAddress) {
+        return UserAccountEntity.builder()
+                .login("jarek123")
+                .email("jarek123@gmail.com")
+                .firstName("Jarek")
+                .surname("Bielec")
+                .gender(MALE)
+                .birthDate(LocalDate.of(1994, 8, 4))
+                .pesel("99999999999")
+                .homeAddress(jarekHome)
+                .billingAddress(billingAddress)
+                .build();
+    }
+
     public static UserAccountEntity createAndrzej(Address andrzejHome) {
         return UserAccountEntity.builder()
                 .login("jarek123")

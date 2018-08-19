@@ -9,6 +9,10 @@ import static lombok.AccessLevel.PRIVATE;
 public final class AddressFactory {
 
     public static Address createJarekHome() {
+        return new Address("3 Maja", "12-122", "Skierbieszow");
+    }
+
+    public static Address createJarekBillingAddress() {
         return new Address("Nadbystrzycka", "12-123", "Lublin");
     }
 

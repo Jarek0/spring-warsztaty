@@ -43,4 +43,12 @@ public class UserAccountEntity {
     private String pesel;
 
     private Address homeAddress;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "street", column = @Column(name = "billing_street")),
+            @AttributeOverride(name = "zipCode", column = @Column(name = "billing_zip_code")),
+            @AttributeOverride(name = "city", column = @Column(name = "billing_city")),
+    })
+    private Address billingAddress;
 }

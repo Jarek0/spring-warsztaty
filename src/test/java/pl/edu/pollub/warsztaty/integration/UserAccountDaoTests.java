@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 import static pl.edu.pollub.warsztaty.userAccount.factory.AddressFactory.createAndrzejHome;
+import static pl.edu.pollub.warsztaty.userAccount.factory.AddressFactory.createJarekBillingAddress;
 import static pl.edu.pollub.warsztaty.userAccount.factory.AddressFactory.createJarekHome;
 import static pl.edu.pollub.warsztaty.userAccount.factory.UserAccountFactory.createAndrzej;
 import static pl.edu.pollub.warsztaty.userAccount.factory.UserAccountFactory.createJarek;
@@ -37,6 +38,17 @@ public class UserAccountDaoTests {
     public void shouldSaveJarek() {
         Address jarekHome = createJarekHome();
         UserAccountEntity jarek = createJarek(jarekHome);
+
+        userAccountDao.save(jarek);
+
+        assertNotNull(jarek.getId());
+    }
+
+    @Test
+    public void shouldSaveJarekWithBillingAddress() {
+        Address jarekHome = createJarekHome();
+        Address jarekBillingAddress = createJarekBillingAddress();
+        UserAccountEntity jarek = createJarek(jarekHome, jarekBillingAddress);
 
         userAccountDao.save(jarek);
 
