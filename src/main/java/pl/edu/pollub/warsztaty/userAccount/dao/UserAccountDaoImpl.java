@@ -17,4 +17,9 @@ public class UserAccountDaoImpl implements CustomizedUserAccountDao {
         entityManager.detach(u);
     }
 
+    @Override
+    public void clear() {
+        entityManager.clear();
+    }
+
 }

@@ -49,8 +49,7 @@ public final class UserAccountFactory {
                 .birthDate(LocalDate.of(1994, 8, 4))
                 .pesel("99999999999")
                 .homeAddress(jarekHome)
-                .bankAccounts(new HashSet<>())
-                .creditCards(new HashSet<>())
+                .billingDetails(new HashSet<>())
                 .build();
     }
 

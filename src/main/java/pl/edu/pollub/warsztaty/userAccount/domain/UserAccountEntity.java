@@ -1,6 +1,7 @@
 package pl.edu.pollub.warsztaty.userAccount.domain;
 
 import lombok.*;
+import pl.edu.pollub.warsztaty.billingDetails.BillingDetails;
 import pl.edu.pollub.warsztaty.billingDetails.impl.BankAccount;
 import pl.edu.pollub.warsztaty.billingDetails.impl.CreditCard;
 import pl.edu.pollub.warsztaty.userAccount.domain.address.Address;
@@ -27,6 +28,7 @@ import static javax.persistence.GenerationType.IDENTITY;
                 @PrimaryKeyJoinColumn(name = "user_account_id", referencedColumnName = "id")
         })
 })
+@ToString(exclude = {"billingDetails"})
 public class UserAccountEntity {
 
     @Id
@@ -66,22 +68,12 @@ public class UserAccountEntity {
     private Address billingAddress;
 
     @OneToMany(mappedBy = "userAccount", cascade = {PERSIST})
-    private Set<BankAccount> bankAccounts;
+    private Set<BillingDetails> billingDetails;
 
-    @OneToMany(mappedBy = "userAccount", cascade = {PERSIST})
-    private Set<CreditCard> creditCards;
-
-    public void addBankAccounts(BankAccount... bankAccounts) {
-        Collections.addAll(this.getBankAccounts(), bankAccounts);
-        for(BankAccount bankAccount : bankAccounts) {
-            bankAccount.setUserAccount(this);
-        }
-    }
-
-    public void addCreditCards(CreditCard... creditCards) {
-        Collections.addAll(this.getCreditCards(), creditCards);
-        for(CreditCard creditCard : creditCards) {
-            creditCard.setUserAccount(this);
+    public void addBillingDetails(BillingDetails... billingDetails) {
+        Collections.addAll(this.getBillingDetails(), billingDetails);
+        for(BillingDetails billingDetail : billingDetails) {
+            billingDetail.setUserAccount(this);
         }
     }
 }

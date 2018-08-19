@@ -6,4 +6,5 @@ public interface CustomizedUserAccountDao {
 
     void detach(UserAccountEntity userAccount);
 
+    void clear();
 }

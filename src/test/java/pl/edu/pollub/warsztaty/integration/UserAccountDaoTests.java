@@ -1,5 +1,6 @@
 package pl.edu.pollub.warsztaty.integration;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.ObjectNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +9,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
+import pl.edu.pollub.warsztaty.billingDetails.BillingDetails;
+import pl.edu.pollub.warsztaty.billingDetails.dao.BillingDetailsDao;
 import pl.edu.pollub.warsztaty.billingDetails.factory.BankAccountFactory;
 import pl.edu.pollub.warsztaty.billingDetails.factory.CreditCardFactory;
 import pl.edu.pollub.warsztaty.userAccount.dao.UserAccountDao;
@@ -17,8 +21,10 @@ import pl.edu.pollub.warsztaty.userAccount.domain.address.zipCode.impl.GermanZip
 import pl.edu.pollub.warsztaty.userAccount.domain.address.zipCode.impl.SwissZipCode;
 
 
+import javax.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
@@ -28,29 +34,35 @@ import static pl.edu.pollub.warsztaty.userAccount.factory.UserAccountFactory.*;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = NONE)
+@Slf4j
 public class UserAccountDaoTests {
 
     @Autowired
     private UserAccountDao userAccountDao;
 
+    @Autowired
+    private BillingDetailsDao billingDetailsDao;
+
     @Test
+    @Transactional
     public void shouldSaveBillingDetails() {
         Address jarekHome = createJarekHome();
         UserAccountEntity jarek = createJarek(jarekHome);
 
-        jarek.addBankAccounts(
+        jarek.addBillingDetails(
                 BankAccountFactory.of("123","Alior", "Alior", "jarek"),
                 BankAccountFactory.of("124","Alior", "Alior", "jarek"),
-                BankAccountFactory.of("125","Alior", "Alior", "jarek")
-        );
-
-        jarek.addCreditCards(
+                BankAccountFactory.of("125","Alior", "Alior", "jarek"),
                 CreditCardFactory.of("123","1", "2018", "jarek"),
                 CreditCardFactory.of("124","1", "2018", "jarek"),
                 CreditCardFactory.of("125","1", "2018", "jarek")
         );
 
         userAccountDao.save(jarek);
+
+        List<BillingDetails> billingDetails = billingDetailsDao.findAll();
+
+        assertEquals(6, billingDetails.size());
     }
 
     @Test
