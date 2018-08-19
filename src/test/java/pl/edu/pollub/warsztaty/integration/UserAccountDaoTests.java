@@ -1,8 +1,6 @@
 package pl.edu.pollub.warsztaty.integration;
 
-import com.sun.deploy.security.ruleset.ExceptionRule;
 import org.hibernate.ObjectNotFoundException;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 import pl.edu.pollub.warsztaty.userAccount.dao.UserAccountDao;
 import pl.edu.pollub.warsztaty.userAccount.domain.UserAccountEntity;
 
@@ -119,6 +116,18 @@ public class UserAccountDaoTests {
         List<UserAccountEntity> foundUsers = userAccountDao.findAll();
 
         assertEquals(4, foundUsers.size());
+    }
+
+    @Test
+    public void shouldNotSaveUserAccount() {
+        UserAccountEntity jarek = createJarek(); //Przejsciowy
+
+        userAccountDao.save(jarek); //Trwaly
+
+        userAccountDao.detach(jarek); //Odłączony
+
+        jarek.setFirstName("Andrzej");
+
     }
 
 }
