@@ -21,10 +21,8 @@ import pl.edu.pollub.warsztaty.userAccount.domain.address.zipCode.impl.GermanZip
 import pl.edu.pollub.warsztaty.userAccount.domain.address.zipCode.impl.SwissZipCode;
 
 
-import javax.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;

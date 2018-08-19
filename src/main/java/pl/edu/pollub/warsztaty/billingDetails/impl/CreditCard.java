@@ -20,8 +20,10 @@ public class CreditCard extends BillingDetails {
     @Column(unique = true)
     private String cardNumber;
 
+    @Column(nullable = false)
     private String expMonth;
 
+    @Column(nullable = false)
     private String expYear;
 
 }

@@ -8,10 +8,10 @@ import pl.edu.pollub.warsztaty.userAccount.domain.UserAccountEntity;
 import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
-import static javax.persistence.InheritanceType.SINGLE_TABLE;
+import static javax.persistence.InheritanceType.JOINED;
 
 @Entity
-@Inheritance(strategy = SINGLE_TABLE)
+@Inheritance(strategy = JOINED)
 @Data
 @ToString
 public abstract class BillingDetails {
