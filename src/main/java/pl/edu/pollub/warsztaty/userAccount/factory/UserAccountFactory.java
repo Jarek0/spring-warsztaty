@@ -1,7 +1,7 @@
 package pl.edu.pollub.warsztaty.userAccount.factory;
 
 import lombok.NoArgsConstructor;
-import pl.edu.pollub.warsztaty.userAccount.domain.Address;
+import pl.edu.pollub.warsztaty.userAccount.domain.address.Address;
 import pl.edu.pollub.warsztaty.userAccount.domain.UserAccountEntity;
 
 import java.time.LocalDate;

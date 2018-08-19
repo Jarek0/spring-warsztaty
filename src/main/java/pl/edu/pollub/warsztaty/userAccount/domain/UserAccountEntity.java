@@ -1,6 +1,7 @@
 package pl.edu.pollub.warsztaty.userAccount.domain;
 
 import lombok.*;
+import pl.edu.pollub.warsztaty.userAccount.domain.address.Address;
 
 import javax.persistence.*;
 

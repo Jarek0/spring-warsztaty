@@ -9,22 +9,19 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.edu.pollub.warsztaty.userAccount.dao.UserAccountDao;
-import pl.edu.pollub.warsztaty.userAccount.domain.Address;
+import pl.edu.pollub.warsztaty.userAccount.domain.address.Address;
 import pl.edu.pollub.warsztaty.userAccount.domain.UserAccountEntity;
+import pl.edu.pollub.warsztaty.userAccount.domain.address.zipCode.impl.GermanZipCode;
+import pl.edu.pollub.warsztaty.userAccount.domain.address.zipCode.impl.SwissZipCode;
 
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
-import static pl.edu.pollub.warsztaty.userAccount.factory.AddressFactory.createAndrzejHome;
-import static pl.edu.pollub.warsztaty.userAccount.factory.AddressFactory.createJarekBillingAddress;
-import static pl.edu.pollub.warsztaty.userAccount.factory.AddressFactory.createJarekHome;
-import static pl.edu.pollub.warsztaty.userAccount.factory.UserAccountFactory.createAndrzej;
-import static pl.edu.pollub.warsztaty.userAccount.factory.UserAccountFactory.createJarek;
-import static pl.edu.pollub.warsztaty.userAccount.factory.UserAccountFactory.of;
+import static pl.edu.pollub.warsztaty.userAccount.factory.AddressFactory.*;
+import static pl.edu.pollub.warsztaty.userAccount.factory.UserAccountFactory.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -33,6 +30,32 @@ public class UserAccountDaoTests {
 
     @Autowired
     private UserAccountDao userAccountDao;
+
+    @Test
+    public void shouldHasGermanZipCode() {
+        Address jarekHome = createJarekHome();
+        UserAccountEntity jarek = createJarek(jarekHome);
+
+        userAccountDao.save(jarek);
+
+        UserAccountEntity foundJarek = userAccountDao.findByLogin("jarek123")
+                .orElseThrow(() -> new ObjectNotFoundException("jarek123", "UserAccount"));
+
+        assertTrue(foundJarek.getHomeAddress().getZipCode() instanceof GermanZipCode);
+    }
+
+    @Test
+    public void shouldHasSwissZipCode() {
+        Address andrzejHome = createAndrzejHome();
+        UserAccountEntity andrzej = createAndrzej(andrzejHome);
+
+        userAccountDao.save(andrzej);
+
+        UserAccountEntity foundAndrzej = userAccountDao.findByLogin("jarek123")
+                .orElseThrow(() -> new ObjectNotFoundException("jarek123", "UserAccount"));
+
+        assertTrue(foundAndrzej.getHomeAddress().getZipCode() instanceof SwissZipCode);
+    }
 
     @Test
     public void shouldSaveJarek() {
