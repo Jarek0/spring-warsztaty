@@ -44,9 +44,6 @@ public class UserAccountDaoTests {
     @Autowired
     private BillingDetailsDao billingDetailsDao;
 
-    @Autowired
-    private EntityManager entityManager;
-
     @Test
     public void shouldSaveWithItem() {
         Address jarekHome = createJarekHome();

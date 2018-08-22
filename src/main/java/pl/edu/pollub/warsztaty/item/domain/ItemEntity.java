@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.Type;
 import pl.edu.pollub.warsztaty.bid.BidEntity;
+import pl.edu.pollub.warsztaty.category.domain.CategoryEntity;
 import pl.edu.pollub.warsztaty.item.domain.image.Image;
 import pl.edu.pollub.warsztaty.userAccount.domain.UserAccountEntity;
 
@@ -18,7 +19,7 @@ import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "item")
+@Table(name = "items")
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"name"})
@@ -45,6 +46,9 @@ public class ItemEntity {
 
     @OneToOne(mappedBy = "item", fetch = FetchType.LAZY)
     private UserAccountEntity user;
+
+    @ManyToMany(mappedBy = "items")
+    private Set<CategoryEntity> categories = new HashSet<>();
 
     public void addImages(Image... images) {
         Collections.addAll(this.images, images);
