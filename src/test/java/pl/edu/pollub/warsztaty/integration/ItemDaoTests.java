@@ -14,9 +14,11 @@ import pl.edu.pollub.warsztaty.item.domain.image.Image;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 
 @RunWith(SpringRunner.class)
@@ -63,8 +65,10 @@ public class ItemDaoTests {
 
         entityManager.clear();
 
-        ItemEntity foundItem = itemDao.findOne(item.getId());
+        Optional<ItemEntity> maybeFoundItem = itemDao.findItemWithBids(item.getId());
 
+        assertTrue(maybeFoundItem.isPresent());
+        ItemEntity foundItem = maybeFoundItem.get();
         assertNotNull(foundItem.getBids().get(0));
     }
 }
