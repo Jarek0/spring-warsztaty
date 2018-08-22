@@ -29,8 +29,8 @@ public class ItemDaoTests {
 
         itemDao.save(item);
 
-        Item foundItem =itemDao.findAll().get(0);
+        Item foundItem = itemDao.findAll().get(0);
 
-        assertEquals(3, foundItem.getImages().size());
+        assertEquals(4, foundItem.getImages().size());
     }
 }
