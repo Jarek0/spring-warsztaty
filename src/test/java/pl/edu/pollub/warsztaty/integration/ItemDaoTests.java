@@ -32,5 +32,14 @@ public class ItemDaoTests {
         Item foundItem = itemDao.findAll().get(0);
 
         assertEquals(4, foundItem.getImages().size());
+        assertEquals("foo.jpg", foundItem.getImages().get(0));
+        assertEquals("bar.jpg", foundItem.getImages().get(1));
+        assertEquals("bar.jpg", foundItem.getImages().get(2));
+        assertEquals("baz.jpg", foundItem.getImages().get(3));
+        /*
+        foundItem.getImages().add(2, "b.jpg");
+
+        foundItem = itemDao.save(foundItem); //wiele instrukcji update
+        */
     }
 }

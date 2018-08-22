@@ -1,8 +1,6 @@
 package pl.edu.pollub.warsztaty.item.domain;
 
 import lombok.Data;
-import org.hibernate.annotations.CollectionId;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -20,13 +18,9 @@ public class Item {
 
     @ElementCollection
     @CollectionTable(name = "image")
+    @OrderColumn
     @Column(name = "filename")
-    @CollectionId(
-            columns = @Column(name = "image_id"),
-            type = @Type(type = "long"),
-            generator = "identity"
-    )
-    private Collection<String> images = new ArrayList<>();
+    private List<String> images = new ArrayList<>();
 
     public void addImages(String... images) {
         Collections.addAll(this.images, images);
