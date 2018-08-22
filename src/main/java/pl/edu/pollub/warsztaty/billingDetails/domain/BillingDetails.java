@@ -1,4 +1,4 @@
-package pl.edu.pollub.warsztaty.billingDetails;
+package pl.edu.pollub.warsztaty.billingDetails.domain;
 
 
 import lombok.Data;

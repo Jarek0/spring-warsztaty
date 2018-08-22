@@ -1,9 +1,9 @@
-package pl.edu.pollub.warsztaty.billingDetails.impl;
+package pl.edu.pollub.warsztaty.billingDetails.domain.impl;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import pl.edu.pollub.warsztaty.billingDetails.BillingDetails;
+import pl.edu.pollub.warsztaty.billingDetails.domain.BillingDetails;
 
 import javax.persistence.*;
 

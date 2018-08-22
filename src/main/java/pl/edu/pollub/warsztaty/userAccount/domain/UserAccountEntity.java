@@ -1,9 +1,7 @@
 package pl.edu.pollub.warsztaty.userAccount.domain;
 
 import lombok.*;
-import pl.edu.pollub.warsztaty.billingDetails.BillingDetails;
-import pl.edu.pollub.warsztaty.billingDetails.impl.BankAccount;
-import pl.edu.pollub.warsztaty.billingDetails.impl.CreditCard;
+import pl.edu.pollub.warsztaty.billingDetails.domain.BillingDetails;
 import pl.edu.pollub.warsztaty.userAccount.domain.address.Address;
 
 import javax.persistence.*;

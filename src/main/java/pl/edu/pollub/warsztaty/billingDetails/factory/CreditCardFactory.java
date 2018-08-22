@@ -1,6 +1,6 @@
 package pl.edu.pollub.warsztaty.billingDetails.factory;
 
-import pl.edu.pollub.warsztaty.billingDetails.impl.CreditCard;
+import pl.edu.pollub.warsztaty.billingDetails.domain.impl.CreditCard;
 
 public class CreditCardFactory {
 

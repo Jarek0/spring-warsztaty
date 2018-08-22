@@ -1,6 +1,6 @@
 package pl.edu.pollub.warsztaty.billingDetails.factory;
 
-import pl.edu.pollub.warsztaty.billingDetails.impl.BankAccount;
+import pl.edu.pollub.warsztaty.billingDetails.domain.impl.BankAccount;
 
 public class BankAccountFactory {
 

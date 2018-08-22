@@ -9,8 +9,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
-import pl.edu.pollub.warsztaty.billingDetails.BillingDetails;
+import pl.edu.pollub.warsztaty.billingDetails.domain.BillingDetails;
 import pl.edu.pollub.warsztaty.billingDetails.dao.BillingDetailsDao;
 import pl.edu.pollub.warsztaty.billingDetails.factory.BankAccountFactory;
 import pl.edu.pollub.warsztaty.billingDetails.factory.CreditCardFactory;
@@ -42,7 +41,6 @@ public class UserAccountDaoTests {
     private BillingDetailsDao billingDetailsDao;
 
     @Test
-    @Transactional
     public void shouldSaveBillingDetails() {
         Address jarekHome = createJarekHome();
         UserAccountEntity jarek = createJarek(jarekHome);
