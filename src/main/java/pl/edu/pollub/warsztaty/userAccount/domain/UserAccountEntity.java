@@ -2,6 +2,7 @@ package pl.edu.pollub.warsztaty.userAccount.domain;
 
 import lombok.*;
 import pl.edu.pollub.warsztaty.billingDetails.domain.BillingDetailsEntity;
+import pl.edu.pollub.warsztaty.item.domain.ItemEntity;
 import pl.edu.pollub.warsztaty.userAccount.domain.address.Address;
 
 import javax.persistence.*;
@@ -56,6 +57,10 @@ public class UserAccountEntity {
     private String pesel;
 
     private Address homeAddress;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = {PERSIST})
+    @JoinColumn(name = "item_id")
+    private ItemEntity item;
 
     @Embedded
     @AttributeOverrides({

@@ -9,10 +9,12 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
+import pl.edu.pollub.warsztaty.bid.BidEntity;
 import pl.edu.pollub.warsztaty.billingDetails.domain.BillingDetailsEntity;
 import pl.edu.pollub.warsztaty.billingDetails.dao.BillingDetailsDao;
 import pl.edu.pollub.warsztaty.billingDetails.factory.BankAccountFactory;
 import pl.edu.pollub.warsztaty.billingDetails.factory.CreditCardFactory;
+import pl.edu.pollub.warsztaty.item.domain.ItemEntity;
 import pl.edu.pollub.warsztaty.userAccount.dao.UserAccountDao;
 import pl.edu.pollub.warsztaty.userAccount.domain.address.Address;
 import pl.edu.pollub.warsztaty.userAccount.domain.UserAccountEntity;
@@ -20,6 +22,8 @@ import pl.edu.pollub.warsztaty.userAccount.domain.address.zipCode.impl.GermanZip
 import pl.edu.pollub.warsztaty.userAccount.domain.address.zipCode.impl.SwissZipCode;
 
 
+import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,6 +43,33 @@ public class UserAccountDaoTests {
 
     @Autowired
     private BillingDetailsDao billingDetailsDao;
+
+    @Autowired
+    private EntityManager entityManager;
+
+    @Test
+    public void shouldSaveWithItem() {
+        Address jarekHome = createJarekHome();
+        UserAccountEntity jarek = createJarek(jarekHome);
+
+        ItemEntity item = new ItemEntity("some item");
+
+        item.addBids(
+                new BidEntity(BigDecimal.valueOf(1)),
+                new BidEntity(BigDecimal.valueOf(2)),
+                new BidEntity(BigDecimal.valueOf(3)),
+                new BidEntity(BigDecimal.valueOf(4))
+        );
+
+        jarek.setItem(item);
+
+        userAccountDao.save(jarek);
+
+        UserAccountEntity foundJarek = userAccountDao.findByLogin("jarek123")
+                .orElseThrow(() -> new ObjectNotFoundException("jarek123", "UserAccount"));
+
+        assertEquals(4, foundJarek.getItem().getBids().size());
+    }
 
     @Test
     public void shouldSaveBillingDetails() {

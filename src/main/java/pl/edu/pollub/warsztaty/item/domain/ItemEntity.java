@@ -7,6 +7,7 @@ import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.Type;
 import pl.edu.pollub.warsztaty.bid.BidEntity;
 import pl.edu.pollub.warsztaty.item.domain.image.Image;
+import pl.edu.pollub.warsztaty.userAccount.domain.UserAccountEntity;
 
 import javax.persistence.*;
 
@@ -41,6 +42,9 @@ public class ItemEntity {
             generator = "identity"
     )
     private Collection<Image> images = new ArrayList<>();
+
+    @OneToOne(mappedBy = "item", fetch = FetchType.LAZY)
+    private UserAccountEntity user;
 
     public void addImages(Image... images) {
         Collections.addAll(this.images, images);
