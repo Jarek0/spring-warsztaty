@@ -37,6 +37,6 @@ public class ItemDaoTests {
 
         ItemEntity foundItem = itemDao.findAll().get(0);
 
-        assertEquals(3, foundItem.getImages().size());
+        assertEquals(4, foundItem.getImages().size());
     }
 }
