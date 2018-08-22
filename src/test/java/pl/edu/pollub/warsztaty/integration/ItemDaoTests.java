@@ -12,12 +12,11 @@ import pl.edu.pollub.warsztaty.item.dao.ItemDao;
 import pl.edu.pollub.warsztaty.item.domain.ItemEntity;
 import pl.edu.pollub.warsztaty.item.domain.image.Image;
 
+import javax.persistence.EntityManager;
 import java.math.BigDecimal;
-import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 
 @RunWith(SpringRunner.class)
@@ -28,6 +27,9 @@ public class ItemDaoTests {
 
     @Autowired
     private ItemDao itemDao;
+
+    @Autowired
+    private EntityManager entityManager;
 
     @Test
     public void shouldHasThreeImages() {
@@ -57,13 +59,12 @@ public class ItemDaoTests {
                 new BidEntity(BigDecimal.valueOf(4))
         );
 
-        itemDao.save(item);
+        item = itemDao.save(item);
 
-        ItemEntity foundItem = itemDao.findAll().get(0);
+        entityManager.clear();
 
-        assertEquals(4, foundItem.getBids().size());
-        Optional<BidEntity> maybeBid = foundItem.getBids().stream().findAny();
-        assertTrue(maybeBid.isPresent());
-        assertNotNull(maybeBid.get());
+        ItemEntity foundItem = itemDao.findOne(item.getId());
+
+        assertNotNull(foundItem.getBids().get(0));
     }
 }

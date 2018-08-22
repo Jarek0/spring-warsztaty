@@ -13,7 +13,7 @@ import javax.persistence.*;
 import java.util.*;
 
 import static javax.persistence.CascadeType.PERSIST;
-import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -30,8 +30,8 @@ public class ItemEntity {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "item", cascade = {PERSIST}, fetch = EAGER)
-    private Set<BidEntity> bids = new HashSet<>();
+    @OneToMany(mappedBy = "item", cascade = {PERSIST}, fetch = LAZY)
+    private List<BidEntity> bids = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "images")

@@ -9,6 +9,7 @@ import pl.edu.pollub.warsztaty.item.dao.ItemDao;
 import pl.edu.pollub.warsztaty.userAccount.dao.UserAccountDao;
 
 
+
 @Component
 @RequiredArgsConstructor
 public class DataBaseInit implements ApplicationListener<ContextRefreshedEvent>{
@@ -18,6 +19,7 @@ public class DataBaseInit implements ApplicationListener<ContextRefreshedEvent>{
 
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+
     }
 
 }
