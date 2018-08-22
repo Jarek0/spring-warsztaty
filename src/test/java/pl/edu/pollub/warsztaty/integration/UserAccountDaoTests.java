@@ -9,7 +9,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
-import pl.edu.pollub.warsztaty.billingDetails.domain.BillingDetails;
+import pl.edu.pollub.warsztaty.billingDetails.domain.BillingDetailsEntity;
 import pl.edu.pollub.warsztaty.billingDetails.dao.BillingDetailsDao;
 import pl.edu.pollub.warsztaty.billingDetails.factory.BankAccountFactory;
 import pl.edu.pollub.warsztaty.billingDetails.factory.CreditCardFactory;
@@ -56,7 +56,7 @@ public class UserAccountDaoTests {
 
         userAccountDao.save(jarek);
 
-        List<BillingDetails> billingDetails = billingDetailsDao.findAll();
+        List<BillingDetailsEntity> billingDetails = billingDetailsDao.findAll();
 
         assertEquals(6, billingDetails.size());
     }

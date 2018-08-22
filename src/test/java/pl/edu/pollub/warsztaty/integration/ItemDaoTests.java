@@ -8,7 +8,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.edu.pollub.warsztaty.item.dao.ItemDao;
-import pl.edu.pollub.warsztaty.item.domain.Item;
+import pl.edu.pollub.warsztaty.item.domain.ItemEntity;
+import pl.edu.pollub.warsztaty.item.domain.image.Image;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
@@ -24,22 +25,18 @@ public class ItemDaoTests {
 
     @Test
     public void shouldHasThreeImages() {
-        Item item = new Item();
-        item.addImages("foo.jpg", "bar.jpg", "bar.jpg", "baz.jpg");
+        ItemEntity item = new ItemEntity();
+        item.addImages(
+                new Image("foo", "foo.jpg", 20, 20),
+                new Image("baz", "baz.jpg", 20, 20),
+                new Image("bar", "bar.jpg", 20, 20),
+                new Image("bar", "bar.jpg", 20, 20)
+        );
 
         itemDao.save(item);
 
-        Item foundItem = itemDao.findAll().get(0);
+        ItemEntity foundItem = itemDao.findAll().get(0);
 
-        assertEquals(4, foundItem.getImages().size());
-        assertEquals("foo.jpg", foundItem.getImages().get(0));
-        assertEquals("bar.jpg", foundItem.getImages().get(1));
-        assertEquals("bar.jpg", foundItem.getImages().get(2));
-        assertEquals("baz.jpg", foundItem.getImages().get(3));
-        /*
-        foundItem.getImages().add(2, "b.jpg");
-
-        foundItem = itemDao.save(foundItem); //wiele instrukcji update
-        */
+        assertEquals(3, foundItem.getImages().size());
     }
 }

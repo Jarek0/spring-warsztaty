@@ -1,7 +1,7 @@
 package pl.edu.pollub.warsztaty.userAccount.domain;
 
 import lombok.*;
-import pl.edu.pollub.warsztaty.billingDetails.domain.BillingDetails;
+import pl.edu.pollub.warsztaty.billingDetails.domain.BillingDetailsEntity;
 import pl.edu.pollub.warsztaty.userAccount.domain.address.Address;
 
 import javax.persistence.*;
@@ -66,11 +66,11 @@ public class UserAccountEntity {
     private Address billingAddress;
 
     @OneToMany(mappedBy = "userAccount", cascade = {PERSIST})
-    private Set<BillingDetails> billingDetails;
+    private Set<BillingDetailsEntity> billingDetails;
 
-    public void addBillingDetails(BillingDetails... billingDetails) {
+    public void addBillingDetails(BillingDetailsEntity... billingDetails) {
         Collections.addAll(this.getBillingDetails(), billingDetails);
-        for(BillingDetails billingDetail : billingDetails) {
+        for(BillingDetailsEntity billingDetail : billingDetails) {
             billingDetail.setUserAccount(this);
         }
     }

@@ -11,10 +11,11 @@ import static javax.persistence.GenerationType.IDENTITY;
 import static javax.persistence.InheritanceType.JOINED;
 
 @Entity
+@Table(name = "billing_details")
 @Inheritance(strategy = JOINED)
 @Data
 @ToString
-public abstract class BillingDetails {
+public abstract class BillingDetailsEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
