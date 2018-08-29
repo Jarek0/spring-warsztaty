@@ -1,6 +1,7 @@
 package pl.edu.pollub.warsztaty.integration;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,21 +34,9 @@ public class ItemDaoTests {
     @Autowired
     private EntityManager entityManager;
 
-    @Test
-    public void shouldHasThreeImages() {
-        ItemEntity item = new ItemEntity("some item");
-        item.addImages(
-                new Image("foo", "foo.jpg", 20, 20),
-                new Image("baz", "baz.jpg", 20, 20),
-                new Image("bar", "bar.jpg", 20, 20),
-                new Image("bar", "bar.jpg", 20, 20)
-        );
-
-        itemDao.save(item);
-
-        ItemEntity foundItem = itemDao.findAll().get(0);
-
-        assertEquals(4, foundItem.getImages().size());
+    @Before
+    public void cleanDb() {
+        itemDao.deleteAll();
     }
 
     @Test

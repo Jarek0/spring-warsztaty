@@ -1,6 +1,7 @@
 package pl.edu.pollub.warsztaty.bid;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import pl.edu.pollub.warsztaty.item.domain.ItemEntity;
 
@@ -15,6 +16,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "bid")
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(of = {"amount", "item"})
 public class BidEntity {
 
     @Id
@@ -25,7 +27,7 @@ public class BidEntity {
     @JoinColumn(name = "item_id", nullable = false)
     private ItemEntity item;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private BigDecimal amount;
 
     public BidEntity(BigDecimal amount) {

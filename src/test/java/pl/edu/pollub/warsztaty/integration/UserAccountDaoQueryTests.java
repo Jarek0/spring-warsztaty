@@ -69,4 +69,6 @@ public class UserAccountDaoQueryTests {
         List<UserAccountEntity> userAccounts = userAccountDao.findByFirstNameAndGenderOrderByHomeCityCriteriaApi("Weronika", FAMALE);
         assertEquals(2, userAccounts.size());
     }
+
+
 }

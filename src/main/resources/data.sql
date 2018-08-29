@@ -38,3 +38,44 @@ VALUES ('1971-07-13', 'august12@o2.pl', 'August', 'MALE', '12312612345', 'Nowak'
 INSERT INTO user_account (city, street, zip_code, login) VALUES ('Lublin', '2 Maja', '12-13', 'lukasz12');
 INSERT INTO personal_data (birth_date, email, first_name, gender, pesel, surname, user_account_id)
 VALUES ('1971-07-13', 'lukasz12@o2.pl', 'Lukasz', 'MALE', '33312312665', 'Nowak', (SELECT id from user_account WHERE login = 'lukasz12'));
+
+INSERT INTO item (name, category) VALUES ('obraz1', 'categoria1');
+
+INSERT  INTO bid (amount, item_id) VALUES (100, (SELECT id FROM item WHERE name = 'obraz1'));
+INSERT  INTO bid (amount, item_id) VALUES (200, (SELECT id FROM item WHERE name = 'obraz1'));
+INSERT  INTO bid (amount, item_id) VALUES (300, (SELECT id FROM item WHERE name = 'obraz1'));
+INSERT  INTO bid (amount, item_id) VALUES (400, (SELECT id FROM item WHERE name = 'obraz1'));
+
+
+INSERT INTO item (name, category) VALUES ('obraz2', 'categoria1');
+
+INSERT  INTO bid (amount, item_id) VALUES (100, (SELECT id FROM item WHERE name = 'obraz2'));
+INSERT  INTO bid (amount, item_id) VALUES (200, (SELECT id FROM item WHERE name = 'obraz2'));
+
+
+INSERT INTO item (name, category) VALUES ('obraz7', 'categoria2');
+
+INSERT  INTO bid (amount, item_id) VALUES (100, (SELECT id FROM item WHERE name = 'obraz7'));
+INSERT  INTO bid (amount, item_id) VALUES (200, (SELECT id FROM item WHERE name = 'obraz7'));
+INSERT  INTO bid (amount, item_id) VALUES (1000, (SELECT id FROM item WHERE name = 'obraz7'));
+
+INSERT INTO item (name, category) VALUES ('obraz3', 'categoria2');
+
+
+INSERT INTO item (name, category) VALUES ('obraz4', 'categoria3');
+
+INSERT  INTO bid (amount, item_id) VALUES (100, (SELECT id FROM item WHERE name = 'obraz4'));
+INSERT  INTO bid (amount, item_id) VALUES (150, (SELECT id FROM item WHERE name = 'obraz4'));
+
+
+INSERT INTO item (name, category) VALUES ('obraz5', 'categoria3');
+
+INSERT  INTO bid (amount, item_id) VALUES (100, (SELECT id FROM item WHERE name = 'obraz5'));
+INSERT  INTO bid (amount, item_id) VALUES (170, (SELECT id FROM item WHERE name = 'obraz5'));
+
+
+INSERT INTO item (name, category) VALUES ('obraz6', 'categoria4');
+
+INSERT  INTO bid (amount, item_id) VALUES (100, (SELECT id FROM item WHERE name = 'obraz6'));
+INSERT  INTO bid (amount, item_id) VALUES (200, (SELECT id FROM item WHERE name = 'obraz6'));
+INSERT  INTO bid (amount, item_id) VALUES (500, (SELECT id FROM item WHERE name = 'obraz6'));

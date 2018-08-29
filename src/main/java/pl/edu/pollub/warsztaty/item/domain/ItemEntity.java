@@ -13,7 +13,7 @@ import javax.persistence.*;
 
 import java.util.*;
 
-import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -31,7 +31,9 @@ public class ItemEntity {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "item", cascade = {PERSIST}, fetch = LAZY)
+    private String category;
+
+    @OneToMany(mappedBy = "item", cascade = {PERSIST, REMOVE}, fetch = LAZY)
     private List<BidEntity> bids = new ArrayList<>();
 
     @ElementCollection
