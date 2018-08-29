@@ -15,6 +15,7 @@ import pl.edu.pollub.warsztaty.item.domain.image.Image;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
@@ -59,5 +60,21 @@ public class ItemDaoTests {
         assertTrue(maybeFoundItem.isPresent());
         ItemEntity foundItem = maybeFoundItem.get();
         assertNotNull(foundItem.getBids().get(0));
+    }
+
+    @Test
+    public void shouldRemoveItemsByCategory() {
+        ItemEntity item1 = new ItemEntity("item1", "category1");
+        ItemEntity item2 = new ItemEntity("item2", "category1");
+        ItemEntity item3 = new ItemEntity("item3", "category2");
+        ItemEntity item4 = new ItemEntity("item4", "category2");
+
+        itemDao.save(Arrays.asList(item1, item2, item3, item4));
+
+        assertEquals(4 , itemDao.findAll().size());
+
+        itemDao.deleteByCategory("category2");
+
+        assertEquals(2 , itemDao.findAll().size());
     }
 }

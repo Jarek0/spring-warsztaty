@@ -62,4 +62,9 @@ public class ItemEntity {
     public ItemEntity(String name) {
         this.name = name;
     }
+
+    public ItemEntity(String name, String category) {
+        this.name = name;
+        this.category = category;
+    }
 }

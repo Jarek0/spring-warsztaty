@@ -1,6 +1,7 @@
 package pl.edu.pollub.warsztaty.item.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -43,4 +44,7 @@ public interface ItemDao extends JpaRepository<ItemEntity, Long> {
             "left join i.bids b on b.amount > :bidAmount")
     List<ItemEntity> findWithBidsWhichAmountGreaterThan(@Param("bidAmount") BigDecimal bidAmount);
 
+    @Modifying
+    @Query("delete from ItemEntity i where i.category = :category")
+    void deleteByCategory(@Param("category") String category);
 }
