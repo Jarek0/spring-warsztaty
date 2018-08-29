@@ -3,6 +3,7 @@ package pl.edu.pollub.warsztaty.item.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.Type;
 import pl.edu.pollub.warsztaty.bid.domain.BidEntity;
@@ -24,6 +25,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"name"})
+@ToString(exclude = {"bids"})
 public class ItemEntity {
 
     @Id
