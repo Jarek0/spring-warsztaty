@@ -16,8 +16,8 @@ import java.util.Optional;
 public interface ItemDao extends JpaRepository<ItemEntity, Long> {
 
     @Query("select i from ItemEntity i " +
-            "left join fetch i.bids " +
-            "where i.id = :itemId")
+           "left join fetch i.bids " +
+           "where i.id = :itemId")
     Optional<ItemEntity> findItemWithBids(@Param("itemId") Long itemId);
 
     @Query("select i from ItemEntity i " +
