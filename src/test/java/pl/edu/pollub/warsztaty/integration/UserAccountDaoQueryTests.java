@@ -11,8 +11,6 @@ import pl.edu.pollub.warsztaty.userAccount.dao.UserAccountDao;
 import pl.edu.pollub.warsztaty.userAccount.domain.UserAccountEntity;
 import pl.edu.pollub.warsztaty.userAccount.dto.LoginAndCityDto;
 
-
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,5 +62,11 @@ public class UserAccountDaoQueryTests {
     public void findLoginAndCityByHomeStreetRawSql() {
         List<Object[]> loginsAndCities = userAccountDao.findLoginAndCityByHomeStreetRawSql("2 Maja");
         assertEquals(5, loginsAndCities.size());
+    }
+
+    @Test
+    public void shouldFindByFirstNameAndGenderOrderByHomeCityWithCriteriaApi() {
+        List<UserAccountEntity> userAccounts = userAccountDao.findByFirstNameAndGenderOrderByHomeCityCriteriaApi("Weronika", FAMALE);
+        assertEquals(2, userAccounts.size());
     }
 }
