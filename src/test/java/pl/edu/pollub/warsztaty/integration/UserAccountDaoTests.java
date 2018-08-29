@@ -2,6 +2,7 @@ package pl.edu.pollub.warsztaty.integration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.ObjectNotFoundException;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,12 @@ public class UserAccountDaoTests {
 
     @Autowired
     private EntityManager entityManager;
+
+    @Before
+    public void cleanDb() {
+        userAccountDao.deleteAll();
+        billingDetailsDao.deleteAll();
+    }
 
     @Test
     public void shouldSaveWithItem() {

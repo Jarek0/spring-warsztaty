@@ -6,6 +6,7 @@ import pl.edu.pollub.warsztaty.userAccount.domain.address.zipCode.impl.SwissZipC
 
 public class ZipCodeFactory {
     public static ZipCode of(String s) {
+        if(s == null) return null;
         if(s.length() == 5) {
             return new GermanZipCode(s);
         }
