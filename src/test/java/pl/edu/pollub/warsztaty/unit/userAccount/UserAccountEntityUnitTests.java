@@ -1,4 +1,4 @@
-package pl.edu.pollub.warsztaty.unit;
+package pl.edu.pollub.warsztaty.unit.userAccount;
 
 import org.junit.Test;
 import pl.edu.pollub.warsztaty.userAccount.domain.UserAccountEntity;

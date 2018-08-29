@@ -47,4 +47,14 @@ public interface ItemDao extends JpaRepository<ItemEntity, Long> {
     @Modifying
     @Query("delete from ItemEntity i where i.category = :category")
     void deleteByCategory(@Param("category") String category);
+
+    Optional<ItemEntity> findById(Long itemId);
+
+    @Query("select i from ItemEntity i " +
+            "where i.name = :name")
+    Optional<ItemEntity> findByName(@Param("name") String name);
+
+    @Query("select count(i) from ItemEntity i " +
+            "where i.category = :category")
+    Integer getItemsCountForCategory(@Param("category") String category);
 }

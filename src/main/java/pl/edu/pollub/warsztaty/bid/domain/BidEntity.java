@@ -1,4 +1,4 @@
-package pl.edu.pollub.warsztaty.bid;
+package pl.edu.pollub.warsztaty.bid.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

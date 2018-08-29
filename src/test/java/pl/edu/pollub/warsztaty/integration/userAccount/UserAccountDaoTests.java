@@ -1,4 +1,4 @@
-package pl.edu.pollub.warsztaty.integration;
+package pl.edu.pollub.warsztaty.integration.userAccount;
 
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.ObjectNotFoundException;
@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
-import pl.edu.pollub.warsztaty.bid.BidEntity;
+import pl.edu.pollub.warsztaty.bid.domain.BidEntity;
 import pl.edu.pollub.warsztaty.billingDetails.domain.BillingDetailsEntity;
 import pl.edu.pollub.warsztaty.billingDetails.dao.BillingDetailsDao;
 import pl.edu.pollub.warsztaty.billingDetails.factory.BankAccountFactory;

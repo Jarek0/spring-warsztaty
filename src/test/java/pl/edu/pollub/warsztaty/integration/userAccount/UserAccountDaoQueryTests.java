@@ -1,4 +1,4 @@
-package pl.edu.pollub.warsztaty.integration;
+package pl.edu.pollub.warsztaty.integration.userAccount;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

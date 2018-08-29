@@ -5,13 +5,15 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.Type;
-import pl.edu.pollub.warsztaty.bid.BidEntity;
+import pl.edu.pollub.warsztaty.bid.domain.BidEntity;
 import pl.edu.pollub.warsztaty.item.domain.image.Image;
 import pl.edu.pollub.warsztaty.userAccount.domain.UserAccountEntity;
 
 import javax.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.LAZY;
@@ -33,7 +35,7 @@ public class ItemEntity {
 
     private String category;
 
-    @OneToMany(mappedBy = "item", cascade = {PERSIST, REMOVE}, fetch = LAZY)
+    @OneToMany(mappedBy = "item", cascade = {ALL}, fetch = LAZY)
     private List<BidEntity> bids = new ArrayList<>();
 
     @ElementCollection
@@ -55,6 +57,14 @@ public class ItemEntity {
     public void addBids(BidEntity... bids) {
         Collections.addAll(this.bids, bids);
         for(BidEntity bid : bids) {
+            bid.setItem(this);
+        }
+    }
+
+    public void addBids(Double... bids) {
+        List<BidEntity> newBids = Arrays.stream(bids).map(b -> new BidEntity(BigDecimal.valueOf(b))).collect(Collectors.toList());
+        this.bids.addAll(newBids);
+        for(BidEntity bid : newBids) {
             bid.setItem(this);
         }
     }
