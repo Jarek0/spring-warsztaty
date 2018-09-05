@@ -23,7 +23,7 @@ public class BidEntity {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = LAZY, optional = false)
     @JoinColumn(name = "item_id", nullable = false)
     private ItemEntity item;
 

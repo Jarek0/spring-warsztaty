@@ -1,7 +1,6 @@
 package pl.edu.pollub.warsztaty.userAccount.domain;
 
 import lombok.*;
-import pl.edu.pollub.warsztaty.billingDetails.domain.BillingDetailsEntity;
 import pl.edu.pollub.warsztaty.item.domain.ItemEntity;
 import pl.edu.pollub.warsztaty.userAccount.domain.address.Address;
 
@@ -11,7 +10,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Set;
 
-import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -21,13 +20,13 @@ import static javax.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(of = {"pesel"})
+@EqualsAndHashCode(of = {"login"})
 @SecondaryTables({
         @SecondaryTable(name = "personal_data", pkJoinColumns = {
                 @PrimaryKeyJoinColumn(name = "user_account_id", referencedColumnName = "id")
         })
 })
-@ToString(exclude = {"billingDetails"})
+@ToString(exclude = {"items"})
 public class UserAccountEntity {
 
     @Id
@@ -58,25 +57,13 @@ public class UserAccountEntity {
 
     private Address homeAddress;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {PERSIST})
-    @JoinColumn(name = "item_id")
-    private ItemEntity item;
+    @OneToMany(mappedBy = "owner", cascade = ALL)
+    private Set<ItemEntity> items;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "street", column = @Column(name = "billing_street")),
-            @AttributeOverride(name = "zipCode", column = @Column(name = "billing_zip_code")),
-            @AttributeOverride(name = "city", column = @Column(name = "billing_city")),
-    })
-    private Address billingAddress;
-
-    @OneToMany(mappedBy = "userAccount", cascade = {PERSIST})
-    private Set<BillingDetailsEntity> billingDetails;
-
-    public void addBillingDetails(BillingDetailsEntity... billingDetails) {
-        Collections.addAll(this.getBillingDetails(), billingDetails);
-        for(BillingDetailsEntity billingDetail : billingDetails) {
-            billingDetail.setUserAccount(this);
+    public void addItems(ItemEntity... items) {
+        Collections.addAll(this.getItems(), items);
+        for(ItemEntity item : items) {
+            item.setOwner(this);
         }
     }
 }
