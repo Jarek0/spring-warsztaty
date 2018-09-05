@@ -15,7 +15,7 @@ import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "user_account")
+@Table(name = "user_accounts")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
