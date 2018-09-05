@@ -37,8 +37,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Transactional
     @Override
-    public ItemRes create(ItemReq dto) {
-        ItemEntity item = mapper.toEntity(dto);
+    public ItemRes create(ItemReq req) {
+        ItemEntity item = mapper.toEntity(req);
         item = dao.save(item);
         return mapper.toRes(item);
     }
@@ -53,8 +53,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Transactional
     @Override
-    public ItemRes update(ItemReq dto) {
-        ItemEntity item = mapper.toEntity(dto);
+    public ItemRes update(ItemReq req) {
+        ItemEntity item = mapper.toEntity(req);
         item = dao.save(item);
         return mapper.toRes(item);
     }

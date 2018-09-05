@@ -11,11 +11,11 @@ import pl.edu.pollub.warsztaty.item.filter.ItemFilter;
 
 public interface ItemService {
 
-    ItemRes create(ItemReq dto);
+    ItemRes create(ItemReq req);
 
     ItemRes read(Long id);
 
-    ItemRes update(ItemReq dto);
+    ItemRes update(ItemReq req);
 
     ItemRes delete(Long id);
 

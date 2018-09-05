@@ -27,19 +27,19 @@ public class ItemResource {
 
     private final BidValidator bidValidator;
 
-    @InitBinder("dto")
-    public void initItemValidator(WebDataBinder binder) {
-        binder.addValidators(itemValidator);
-    }
-
     @InitBinder("bidDto")
     public void initBidValidator(WebDataBinder binder) {
-        binder.addValidators(bidValidator);
+        binder.setValidator(bidValidator);
+    }
+
+    @InitBinder("itemReq")
+    public void initItemValidator(WebDataBinder binder) {
+        binder.setValidator(itemValidator);
     }
 
     @PostMapping
-    public ItemRes create(@RequestBody @Valid ItemReq dto) {
-        return itemService.create(dto);
+    public ItemRes create(@RequestBody @Valid ItemReq itemReq) {
+        return itemService.create(itemReq);
     }
 
     @GetMapping("/{id}")
@@ -48,8 +48,8 @@ public class ItemResource {
     }
 
     @PatchMapping
-    public ItemRes update(@RequestBody @Valid ItemReq dto) {
-        return itemService.update(dto);
+    public ItemRes update(@RequestBody @Valid ItemReq itemReq) {
+        return itemService.update(itemReq);
     }
 
     @DeleteMapping("/{id}")

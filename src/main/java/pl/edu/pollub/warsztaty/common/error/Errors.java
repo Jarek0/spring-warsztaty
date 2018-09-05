@@ -12,7 +12,7 @@ public final class Errors {
     public static final String BID_VALIDATION_AMOUNT_TOO_SMALL = "bid.validation.amount.tooSmall";
     public static final String BID_NOT_FOUND = "bid.notFound";
 
-    public static final String ITEM_VALIDATION_NOT_UNIQUE_NAME = "item.validation.name.unique";
+    public static final String ITEM_VALIDATION_ALREADY_EXISTS = "item.validation.name.alreadyExists";
     public static final String ITEM_VALIDATION_TOO_MANY_ITEMS_IN_CATEGORY = "item.validation.category.tooManyItems";
     public static final String ITEM_NOT_FOUND = "item.notFound";
 }

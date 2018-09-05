@@ -1,8 +1,6 @@
 package pl.edu.pollub.warsztaty.item.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import pl.edu.pollub.warsztaty.common.validation.StartsWithSameLetter;
 
 import javax.validation.constraints.NotNull;

@@ -20,4 +20,8 @@ public interface ItemDao extends JpaRepository<ItemEntity, Long>, JpaSpecificati
     Optional<ItemEntity> findByNameAndIdNot(String name, Long id);
 
     Long countByCategoryAndIdNot(String category, Long id);
+
+    Optional<ItemEntity> findByName(String name);
+
+    Long countByCategory(String category);
 }
