@@ -1,7 +1,6 @@
 package pl.edu.pollub.warsztaty.item.resources;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +9,7 @@ import pl.edu.pollub.warsztaty.bid.validator.BidValidator;
 import pl.edu.pollub.warsztaty.common.dto.PageDto;
 import pl.edu.pollub.warsztaty.item.dto.ItemReq;
 import pl.edu.pollub.warsztaty.item.dto.ItemRes;
-import pl.edu.pollub.warsztaty.item.filter.ItemFilter;
+import pl.edu.pollub.warsztaty.item.dto.ItemSimRes;
 import pl.edu.pollub.warsztaty.item.service.ItemService;
 import pl.edu.pollub.warsztaty.item.validator.ItemValidator;
 
@@ -58,8 +57,8 @@ public class ItemResource {
     }
 
     @GetMapping
-    public PageDto<ItemRes> readPage(Pageable pageable, ItemFilter filter) {
-        return itemService.readPage(pageable, filter);
+    public PageDto<ItemSimRes> readPage(Pageable pageable) {
+        return itemService.readPage(pageable);
     }
 
     @PostMapping("/bid")

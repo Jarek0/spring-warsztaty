@@ -1,10 +1,7 @@
 package pl.edu.pollub.warsztaty.item.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.edu.pollub.warsztaty.bid.dao.BidDao;
@@ -15,12 +12,9 @@ import pl.edu.pollub.warsztaty.common.dto.PageDto;
 import pl.edu.pollub.warsztaty.item.ItemMapper.ItemMapper;
 import pl.edu.pollub.warsztaty.item.dao.ItemDao;
 import pl.edu.pollub.warsztaty.item.domain.ItemEntity;
-import pl.edu.pollub.warsztaty.item.dto.ItemDto;
 import pl.edu.pollub.warsztaty.item.dto.ItemReq;
 import pl.edu.pollub.warsztaty.item.dto.ItemRes;
-import pl.edu.pollub.warsztaty.item.exception.ItemNotFoundException;
-import pl.edu.pollub.warsztaty.item.filter.ItemFilter;
-import pl.edu.pollub.warsztaty.item.specification.ItemSpecificationBuilder;
+import pl.edu.pollub.warsztaty.item.dto.ItemSimRes;
 
 import static pl.edu.pollub.warsztaty.item.exception.ItemNotFoundException.of;
 
@@ -29,7 +23,6 @@ import static pl.edu.pollub.warsztaty.item.exception.ItemNotFoundException.of;
 public class ItemServiceImpl implements ItemService {
 
     private final ItemDao dao;
-    private final ItemSpecificationBuilder specificationBuilder;
     private final ItemMapper mapper;
 
     private final BidDao bidDao;
@@ -70,9 +63,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Transactional(readOnly = true)
     @Override
-    public PageDto<ItemRes> readPage(Pageable pageable, ItemFilter filter) {
-        Specification<ItemEntity> specification = specificationBuilder.create(filter);
-        return mapper.toPageDto(dao.findAll(specification, pageable));
+    public PageDto<ItemSimRes> readPage(Pageable pageable) {
+        return mapper.toPageDto(dao.findAll(pageable));
     }
 
     @Override

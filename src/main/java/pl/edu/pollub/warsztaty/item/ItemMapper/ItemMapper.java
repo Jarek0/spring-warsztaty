@@ -9,6 +9,7 @@ import pl.edu.pollub.warsztaty.item.dao.ItemDao;
 import pl.edu.pollub.warsztaty.item.domain.ItemEntity;
 import pl.edu.pollub.warsztaty.item.dto.ItemReq;
 import pl.edu.pollub.warsztaty.item.dto.ItemRes;
+import pl.edu.pollub.warsztaty.item.dto.ItemSimRes;
 
 import java.util.Collection;
 import java.util.List;
@@ -50,16 +51,26 @@ public class ItemMapper {
         return dto;
     }
 
-    private List<ItemRes> toRes(Collection<ItemEntity> items) {
+    private ItemSimRes toSimRes(ItemEntity item) {
+        ItemSimRes dto = new ItemSimRes();
+
+        dto.setId(item.getId());
+        dto.setName(item.getName());
+        dto.setCategory(item.getCategory());
+
+        return dto;
+    }
+
+    private List<ItemSimRes> toRes(Collection<ItemEntity> items) {
         return items.stream()
-                .map(this::toRes)
+                .map(this::toSimRes)
                 .collect(Collectors.toList());
     }
 
-    public PageDto<ItemRes> toPageDto(Page<ItemEntity> page) {
+    public PageDto<ItemSimRes> toPageDto(Page<ItemEntity> page) {
         int number = page.getNumber();
         int total = page.getTotalPages();
-        List<ItemRes> dtos = this.toRes(page.getContent());
+        List<ItemSimRes> dtos = this.toRes(page.getContent());
 
         return new PageDto<>(number, total, dtos);
     }
