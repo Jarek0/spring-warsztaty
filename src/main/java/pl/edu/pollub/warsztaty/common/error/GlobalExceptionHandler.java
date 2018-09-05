@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,6 +20,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 import static org.springframework.http.HttpStatus.*;
 import static pl.edu.pollub.warsztaty.common.error.Errors.*;
+import static pl.edu.pollub.warsztaty.common.error.Errors.UNAUTHORIZED;
 
 @ControllerAdvice
 @Slf4j
@@ -67,12 +70,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), NOT_FOUND);
     }
 
+    @ExceptionHandler(value = {BadCredentialsException.class, AccessDeniedException.class})
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    protected ResponseEntity<String> handleUnauthorized(Exception ex, WebRequest req) {
+        log.error("exceptions: "+ex.getClass().getSimpleName()+" message: " + ex.getMessage());
+        ex.printStackTrace();
+
+        return new ResponseEntity<>( UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
+    }
+
     @ExceptionHandler(value = {Exception.class})
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    protected ResponseEntity<String> handleBadRequestException(Exception ex, WebRequest req) {
+    protected ResponseEntity<String> handleInternalServerError(Exception ex, WebRequest req) {
         log.error("exceptions: "+ex.getClass().getSimpleName()+" message: " + ex.getMessage());
         ex.printStackTrace();
 
         return new ResponseEntity<>( FATAL_ERROR, INTERNAL_SERVER_ERROR);
     }
+
 }

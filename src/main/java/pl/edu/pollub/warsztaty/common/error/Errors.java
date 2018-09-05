@@ -7,6 +7,7 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(access = PRIVATE)
 public final class Errors {
     static final String FATAL_ERROR = "internalServerError";
+    static final String UNAUTHORIZED = "unauthorized";
 
     public static final String BID_VALIDATION_ITEM_NOT_EXIST = "bid.validation.amount.itemNotExist";
     public static final String BID_VALIDATION_AMOUNT_TOO_SMALL = "bid.validation.amount.tooSmall";
