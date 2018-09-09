@@ -22,7 +22,7 @@ public class ItemValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return ItemReq.class.equals(aClass);
+        return ItemReq.class.isAssignableFrom(aClass);
     }
 
     @Override

@@ -29,12 +29,12 @@ public class ItemResource {
 
     @InitBinder("bidDto")
     public void initBidValidator(WebDataBinder binder) {
-        binder.setValidator(bidValidator);
+        binder.addValidators(bidValidator);
     }
 
     @InitBinder("itemReq")
     public void initItemValidator(WebDataBinder binder) {
-        binder.setValidator(itemValidator);
+        binder.addValidators(itemValidator);
     }
 
     @PostMapping
